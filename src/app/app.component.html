@@ -1,22 +1,3 @@
-<p>One way data binding</p>
-{{ title }}
-<br>
-<!-- One way data binding []
-  ngModel atribui a relação de alguma variavel/propriedade do nosso component.
-  O ngModel pertence ao modulo FormsModule pkg @angular/forms
--->
-
-<input [ngModel]="title" name="name">
-
-<hr>
-<br>
-<p>Two way data binding</p>
-<!--Interpolation data -->
-{{ name }}
-<br>
-<!-- Two way data binding [( )] -->
-<input [(ngModel)]="name" name="name">
-
-
-
-
+<div class="container">
+    <app-course-list></app-course-list>
+</div>
