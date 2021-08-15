@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Course } from "./course";
+import { CourseService } from "./course.service";
 
 @Component({
     selector: 'app-course-list',
@@ -11,31 +12,16 @@ export class CourseListComponent implements OnInit {
     //Members class
     courses: Course[] = []; //Members
 
-    ngOnInit(): void {
-        //Atribui um array com cursos a serem exibidos
-        this.courses = [
-            {
-                id: 1,
-                name:'Angular - Forms',
-                imageUrl: './assets/images/forms.png',
-                price: 99.99,
-                code: 'XPS-8796',
-                duration: 120,
-                rating: 4.5,
-                releaseDate: 'December, 2, 2019',
+    /**INJEÇÃO DE DEPENDENCIA OCORRO ATRAVES DO CONSTRUTOR 
+     * Neste caso estamos injectando a classe CourseServices para 
+     * trazer a lista de cursos**/
+    constructor(private courseService: CourseService){
+        
+    }
 
-            },
-            {
-                id: 2,
-                name:'Angular - HPPT',
-                imageUrl: './assets/images/http.png',
-                price: 45.99,
-                code: 'LKL-1094',
-                duration: 80,
-                rating: 2,
-                releaseDate: 'November, 18, 2010',
-            }
-        ]
+    ngOnInit(): void {
+        //Igualar o array de cursos chamando o metodo retriveAll() da classe injetada
+        this.courses = this.courseService.retrieveAll();
     }
 
 }
