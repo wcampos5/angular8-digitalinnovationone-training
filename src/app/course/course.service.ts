@@ -48,7 +48,7 @@ var COURSES: Course[] = [
     {
         id: 3,
         name: 'Angular: HTTP',
-        releaseDate: 'November 8, 2019',
+        releaseDate: 'December 8, 2020',
         description: 'Neste curso, os alunos irão obter um conhecimento aprofundado sobre os recursos disponíveis no módulo de HTTP.',
         duration: 80,
         code: 'QPL-0913',
