@@ -37,7 +37,12 @@
                 <app-star [rating]="course.rating"></app-star>
             </td>
 
-            <td></td>
+            <td>
+                <!-- A propriedade [routerLink] recebe um array com a rota a ser direcionada e seus paramentros-->
+                <a [routerLink]="['/courses/info', course.id]" class="btn btn-primary">Edit</a>
+               
+            </td>
         </tr>
-    </tbody>
+    </tbody>\
+
 </table>

@@ -9,6 +9,7 @@ import { ReplacePipe } from './pipe/replace.pipe';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { RouterModule } from '@angular/router';
 import { Error404Component } from './Error/error-404.component';
+import { CourseInfoComponent } from './course/course-info.component';
 
 
 @NgModule({
@@ -18,20 +19,27 @@ import { Error404Component } from './Error/error-404.component';
     StarComponent,
     ReplacePipe,
     NavBarComponent,
-    Error404Component
+    Error404Component,
+    CourseInfoComponent
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
+       //Linka a rota root ao component CourseListComponent
+       {
+        path: 'courses', component: CourseListComponent
+      },
+      {
+        // "/:id" informa ao angular que estamos passando um paramentro
+        path: 'courses/info/:id', component: CourseInfoComponent
+      },
       //Rota padrão (root da aplicação)
       {
-        path: '', redirectTo: 'coursers', pathMatch: 'full'
+        path: '', redirectTo: 'courses', pathMatch: 'full'
       },
-      //Linka a rota root ao component CourseListComponent
-      {
-        path: 'coursers', component: CourseListComponent
-      },
+     
       //Rota padrao (link nao existente)
       {
         path: '**', component: Error404Component
