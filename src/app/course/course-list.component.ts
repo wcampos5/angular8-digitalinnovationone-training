@@ -3,7 +3,11 @@ import { Course } from "./course";
 import { CourseService } from "./course.service";
 
 @Component({
-    selector: 'app-course-list',
+    /** selector removido para a utilização de
+     * rotas
+     *
+     * selector: 'app-course-list',
+     * **/
     templateUrl: './course-list.component.html'
 })
 
