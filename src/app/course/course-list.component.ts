@@ -29,10 +29,32 @@ export class CourseListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        //popula o array de cursos chamando o metodo retriveAll() da classe injetada
-        this._courses = this.courseService.retrieveAll();
-        this.filteredCourses = this._courses //because initially there's nothing filtered
+        //popula o array de cursos chamando o metodo retriveAll() da classe, esta por sua vez invoca Service.retrieveAll()
+        this.retrieveAll();
 
+    }
+
+    retrieveAll(): void {
+        this.courseService.retrieveAll().subscribe({
+            //Next ==> Quando a classe de servico retorna alguma coisa.
+            //courses é onde está sendo retornado o array de cursos da requisicao get em service.retrieveAll()
+            next: courses => {
+                this._courses = courses;
+                
+                this.filteredCourses = this._courses //because initially there's nothing filtered
+            },
+            error: err=> console.log('Erro: ', err)
+        })
+    }
+
+    deleteById(courseId: number): void {
+        this.courseService.deleteById(courseId).subscribe({
+            next: () => {
+                console.log('Deleted with sucess');
+                this.retrieveAll();
+            },
+            error: err => console.log('Error', err)
+        })
     }
 
     /** Getter and Setters 

@@ -7,7 +7,7 @@
     Estudar mais sobre as variaveis de template no angular
 
 -->
-<form #courseForm="ngForm">
+<form #courseForm="ngForm" *ngIf="course"> <!-- Como a solicitacao do curso pelo http.get é assincrona, só exibe o *ngIf só exibe o form quando o curso for carregado -->
 <!-- recebe a informação via course.service.ts-->
     
     <div class="form-group row">

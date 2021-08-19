@@ -1,4 +1,6 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { Course } from "./course";
 
 
@@ -16,23 +18,48 @@ export class CourseService {
      * It should have only constant VARIABLES or methods that execute some or call other methods
      */
 
+    //Class Members
+    private courseUrl: string = 'http://localhost:3100/api/courses';
+
+    //Injeção do HttpClient
+    constructor(private httpCliente: HttpClient){
+
+    }
+
     //Method to return the below created array course
-    retrieveAll(): Course[] {
-        return COURSES;
+    retrieveAll(): Observable<Course[]> {
+        /**
+         * httpCliente sempre retorna um tipo Observable
+         * Ele é ASSINCRONO
+         * Aqui nos definimos o contrato com o Observable no component precisamos nos subscrever senão na funcionará
+         **/
+
+        return this.httpCliente.get<Course[]>(this.courseUrl);
     }
 
     //Return based on Id
-    retrieveById(id: number): Course {
-        return COURSES.find((courseItereator: Course) => courseItereator.id === id);
+    retrieveById(id: number): Observable<Course> {
+        //Chama o get do HttpClient passando o id na Url
+        return this.httpCliente.get<Course>(`${this.courseUrl}/${id}`);
     }
 
-    save(course: Course): void {
+    save(course: Course): Observable<Course> {
+        //Se o id existe usamos put para alterar, caso contrario o post para enviar.
         if (course.id){
             //Pega o indice do array
-            const index = COURSES.findIndex((courseItereator: Course) => courseItereator.id === course.id);
-
-            COURSES[index] = course;
+            //const index = COURSES.findIndex((courseItereator: Course) => courseItereator.id === course.id);
+            //put -> enviar a url e o body, que no caso é nosso curso
+            return this.httpCliente.put<Course>(`${this.courseUrl}/${course.id}`, course);
+            this.retrieveAll();
+        } else {
+            //post ->envia a url e o curso
+            return this,this.httpCliente.post<Course>(this.courseUrl, course)
+            this.retrieveAll();
         }
+    }
+
+    deleteById(id: number): Observable<any> {
+        return this.httpCliente.delete<any>(`${this.courseUrl}/${id}`);
     }
 }
 
